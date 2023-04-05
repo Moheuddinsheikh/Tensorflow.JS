@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My web app</title>
+<!--  Load TensorFlow.js. This is required to use MobileNet.-->
+<script src="https://unpkg.com/@tensorflow/tfjs@0.10.3"> </script>
+<!-- Load the MobileNet model. -->
+<script src="https://unpkg.com/@tensorflow-models/mobilenet@0.0.1"> </script>
+</head>
+<body>
+    <h1>Image Classify</h1>
+    <p id="img_predictions"></p>
+<!-- Image to be classified can be replaced with your image. -->
+<img id="img" src="cat.png" width= 400px></img>
+<!-- Can also use an external .js file -->
+<script>
+  const img = document.getElementById('img');
+
+  // Load the model.
+  mobilenet.load().then(model => {
+    // Classify the image.
+    model.classify(img).then(predictions => {
+      displayPredictions(predictions);
+    });
+  });
+  // Display the predictions on the page. 
+  function displayPredictions(predictions) {
+    document.getElementById("img_predictions").innerHTML = JSON.stringify(predictions, null, 4);
+  }
+</script>
+</body>
+</html>
